@@ -2,13 +2,17 @@ package com.youzan.mobile.uiautomator;
 
 import android.content.Context;
 
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
+import androidx.test.uiautomator.By;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -18,10 +22,11 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-        assertEquals("com.youzan.mobile.uiautomator", appContext.getPackageName());
+    public void clickTest() {
+        UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        List<UiObject2> clickList = mDevice.findObjects(By.clickable(true));
+        for(int i=0;i<clickList.size();i++){
+            clickList.get(i).click();
+        }
     }
 }
