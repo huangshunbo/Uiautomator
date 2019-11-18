@@ -11,6 +11,7 @@ import androidx.test.uiautomator.UiObject2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -24,9 +25,19 @@ public class ExampleInstrumentedTest {
     @Test
     public void clickTest() {
         UiDevice mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        List<UiObject2> clickList = mDevice.findObjects(By.clickable(true));
-        for(int i=0;i<clickList.size();i++){
-            clickList.get(i).click();
+        try {
+            mDevice.executeShellCommand("adb shell am start -n com.youzan.mobile.uiautomator/com.youzan.mobile.uiautomator.MainActivity");
+            mDevice.wait(5000);
+            List<UiObject2> clickList = mDevice.findObjects(By.clickable(true));
+            for(int i=0;i<clickList.size();i++){
+                clickList.get(i).click();
+                mDevice.wait(1000);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
     }
 }
